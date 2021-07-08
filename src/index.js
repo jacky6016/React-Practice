@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
+  // The App component is inserted into the 'root' div
   <React.StrictMode>
     <App />
   </React.StrictMode>,
