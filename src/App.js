@@ -1,15 +1,23 @@
 // The root App component
 // JSX must return one parent component (or wrapped in <>...</>)
-function App() {
-  const name1 = 'Brad';
-  const name2 = 'Pitt';
-  const x = true;
-  return (
-    <div className="App">
-      <h1>Hello From React</h1>
-      <h2>Hello {x? name1 : name2}</h2>
-    </div>
-  );
+import Header from './components/Header'
+
+// Using a functional component
+// const App = () => {
+//   return (
+//     <div className='container'>
+//         <Header />
+//     </div>
+//   )
+// }
+
+// if using class component
+import React from 'react'
+class App extends React.Component {
+  render() {
+    return <h1>Hello from a class</h1>
+  }
 }
 
 export default App;
+ 
