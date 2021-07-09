@@ -10,6 +10,8 @@ const App = () => {
     1. we pass in an initial state (a variable or an object)
     2. returns a stateful value and a function to update it
   */
+	const [showAddTask, setShowAddTask] = useState(false)
+
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -66,8 +68,11 @@ const App = () => {
   return (
     // passing a prop
     <div className='container'>
-      <Header />
-			<AddTask onAdd={addTask} />
+      <Header 
+				onAdd={() => setShowAddTask(!showAddTask)} 
+				showAdd={showAddTask}
+			/>
+			{showAddTask && <AddTask onAdd={addTask} />}
       {tasks.length > 0 
 				? <Tasks 
 						tasks={tasks}
