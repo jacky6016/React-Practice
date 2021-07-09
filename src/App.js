@@ -30,18 +30,35 @@ const App = () => {
     },
   ])
 
+	/* 
+		These event triggered functions now only changes frontend display.
+		Normally they will also call backend routes to change data
+	*/
+
 	// Delete Task
 	const deleteTask = (id) => {
 		// console.log('delete', id)
 		setTasks(tasks.filter((task) => task.id !== id))
 	}
-      
+
+	// Toggle Reminder
+	const toggleReminder = (id) => {
+		setTasks(tasks.map((task) => task.id === id 
+			? {...task, reminder: !task.reminder}
+			: task
+		))
+	}
+
   return (
     // passing a prop
     <div className='container'>
       <Header />
       {tasks.length > 0 
-				? <Tasks tasks={tasks} onDelete={deleteTask} />
+				? <Tasks 
+						tasks={tasks} 
+						onDelete={deleteTask}
+						onToggle={toggleReminder}
+					/>
 				: 'No Tasks To Show'}
     </div>
   )
