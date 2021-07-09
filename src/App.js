@@ -35,6 +35,19 @@ const App = () => {
 		These event triggered functions now only changes frontend display.
 		Normally they will also call backend routes to change data
 	*/
+	
+	/* 
+		The three dots syntax (…) is part of ES6 and not React itself 
+		and it's used by two operators i.e. the Spread and Rest operators. 
+		The Spread operator lets you expand an iterable like an object, string, or array 
+		into its elements while the Rest operator does the inverse by reducing a set of elements into one array.
+	*/
+	// Add Task
+	const addTask = (task) => {
+		const id = Math.floor(Math.random() * 10000) + 1
+		const newTask = { id, ...task }
+		setTasks([...tasks, newTask])
+	}
 
 	// Delete Task
 	const deleteTask = (id) => {
@@ -54,10 +67,10 @@ const App = () => {
     // passing a prop
     <div className='container'>
       <Header />
-			<AddTask />
+			<AddTask onAdd={addTask} />
       {tasks.length > 0 
 				? <Tasks 
-						tasks={tasks} 
+						tasks={tasks}
 						onDelete={deleteTask}
 						onToggle={toggleReminder}
 					/>
