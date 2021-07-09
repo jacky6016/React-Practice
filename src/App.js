@@ -29,12 +29,18 @@ const App = () => {
       reminder: false,
     },
   ])
+
+	// Delete Task
+	const deleteTask = (id) => {
+		// console.log('delete', id)
+		setTasks(tasks.filter((task) => task.id !== id))
+	}
       
   return (
     // passing a prop
     <div className='container'>
       <Header />
-      <Tasks tasks={tasks} />
+      <Tasks tasks={tasks} onDelete={deleteTask} />
     </div>
   )
 }
