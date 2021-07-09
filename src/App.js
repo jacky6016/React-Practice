@@ -5,7 +5,7 @@ const App = () => {
   return (
     // passing a prop
     <div className='container'>
-        <Header title='Hello' />
+        <Header />
     </div>
   )
 }
