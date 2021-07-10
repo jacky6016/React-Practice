@@ -1,5 +1,5 @@
 // The root App component
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
@@ -14,6 +14,29 @@ const App = () => {
 
   const [tasks, setTasks] = useState([])
 
+	/*
+		By using this Hook, you tell React that your component needs to do something after render. 
+		React will remember the function you passed (we'll refer to it as our “effect”), 
+		and call it later after performing the DOM updates.
+	*/
+	useEffect(() => {
+			const getTasks = async () => {
+				const tasksFromServer = await fecthTasks()
+				setTasks(tasksFromServer)
+			}
+
+			getTasks()
+		}, [])
+
+	// calling backend API and return JSON data
+	const fecthTasks = async () => {
+		const res = await fetch('http://localhost:5000/tasks')
+		const data = await res.json()
+		
+		console.log(data)
+		return data
+	}
+
 	/* 
 		These event triggered functions now only changes frontend display.
 		Normally they will also call backend routes to change data
@@ -26,15 +49,33 @@ const App = () => {
 		into its elements while the Rest operator does the inverse by reducing a set of elements into one array.
 	*/
 	// Add Task
-	const addTask = (task) => {
-		const id = Math.floor(Math.random() * 10000) + 1
-		const newTask = { id, ...task }
-		setTasks([...tasks, newTask])
+	const addTask = async (task) => {
+		// add data in backend
+		const res = await fetch(
+			'http://localhost:5000/tasks', 
+			{
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: JSON.stringify(task)
+			}
+		)
+		
+		const data = await res.json()
+		// modify frontend component state
+		setTasks([...tasks, data])
+	
+		// const id = Math.floor(Math.random() * 10000) + 1
+		// const newTask = { id, ...task }
+		// setTasks([...tasks, newTask])
 	}
 
 	// Delete Task
-	const deleteTask = (id) => {
-		// console.log('delete', id)
+	const deleteTask = async (id) => {
+		// delete data in backend
+		await fetch(`http://localhost:5000/tasks/${id}`, {method: 'DELETE'})
+		// modify frontend component state
 		setTasks(tasks.filter((task) => task.id !== id))
 	}
 
