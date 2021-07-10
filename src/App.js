@@ -37,6 +37,14 @@ const App = () => {
 		return data
 	}
 
+	const fecthTask = async (id) => {
+		const res = await fetch(`http://localhost:5000/tasks/${id}`)
+		const data = await res.json()
+		
+		console.log(data)
+		return data
+	}
+
 	/* 
 		These event triggered functions now only changes frontend display.
 		Normally they will also call backend routes to change data
@@ -80,9 +88,25 @@ const App = () => {
 	}
 
 	// Toggle Reminder
-	const toggleReminder = (id) => {
+	const toggleReminder = async (id) => {
+		const taskToToggle = await fecthTask(id)
+		const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+
+		const res = await fetch(
+			`http://localhost:5000/tasks/${id}`,
+			{
+				method: 'PUT',
+				headers: {
+					'Content-type': 'application/json'
+				},
+				body: JSON.stringify(updatedTask)
+			}
+		)
+
+		const data = await res.json()
+
 		setTasks(tasks.map((task) => task.id === id 
-			? {...task, reminder: !task.reminder}
+			? {...task, reminder: data.reminder}
 			: task
 		))
 	}
