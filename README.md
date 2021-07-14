@@ -4,9 +4,9 @@ This is a repository containing learning notes and code from the [React JS Crash
 `npm run build`
 
 # Run the Project
-Run the React app in dev mode: `npm start`
-Run the production built React app: `serve -s build -p [PORT]`
-Run the mock backend server: `npm run server` (backend db will be saved in `db.json`)
+- Run the React app in dev mode: `npm start`
+- Run the production built React app: `serve -s build -p [PORT]`
+- Run the mock backend server: `npm run server` (backend db will be saved in `db.json`)
 
 # Acknowledgement
 
